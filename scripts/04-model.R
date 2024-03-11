@@ -13,7 +13,7 @@ library(rstanarm)
 library(arrow)
 
 #### Read data ####
-ces2022_cleaned <- read_parquet("data/analysis_data/ces2022_cleaned.parquet")
+ces2022_cleaned <- read_parquet("data/analysis_data/ces2020_cleaned.parquet")
 
 ### Model data ####
 set.seed(853)
