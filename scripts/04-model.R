@@ -19,14 +19,14 @@ ces2022_cleaned <- read_parquet("data/analysis_data/ces2022_cleaned.parquet")
 set.seed(853)
 
 # Randomly sample 1000 observations
-ces2022_reduced <-
-  ces2022_cleaned |> 
+ces2020_reduced <-
+  ces2020_cleaned |> 
   slice_sample(n = 1000)
 
 political_preferences <-
   stan_glm(
     voted_for ~ gender + race,
-    data = ces2022_reduced,
+    data = ces2020_reduced,
     family = binomial(link = "logit"),
     prior = normal(location = 0, scale = 2.5, autoscale = TRUE),
     prior_intercept = normal(location = 0, scale = 2.5, autoscale = TRUE),
