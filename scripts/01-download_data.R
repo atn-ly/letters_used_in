@@ -1,26 +1,26 @@
 #### Preamble ####
-# Purpose: Downloads and saves the data from [...UPDATE THIS...]
-# Author: Rohan Alexander [...UPDATE THIS...]
-# Date: 11 February 2023 [...UPDATE THIS...]
-# Contact: rohan.alexander@utoronto.ca [...UPDATE THIS...]
+# Purpose: Downloads and saves data from CES 2020 (Cooperative Election Study Common Content, 2020)
+# Author: Renfrew Ao-Ieong
+# Date: 11 March 2024
+# Contact: renfrew.aoieong@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: [...UPDATE THIS...]
-# Any other information needed? [...UPDATE THIS...]
+# Pre-requisites: tidyverse, dataverse, arrow
 
 
 #### Workspace setup ####
-library(opendatatoronto)
 library(tidyverse)
-# [...UPDATE THIS...]
+library(dataverse)
+library(arrow)
 
 #### Download data ####
-# [...ADD CODE HERE TO DOWNLOAD...]
-
-
+ces2020 <-
+  get_dataframe_by_name(
+    filename = "CES20_Common_OUTPUT_vv.csv",
+    dataset = "10.7910/DVN/E9N6PH",
+    server = "dataverse.harvard.edu",
+    .f = read_csv
+  ) |>
+  select(votereg, CC20_410, gender, race, gunown)
 
 #### Save data ####
-# [...UPDATE THIS...]
-# change the_raw_data to whatever name you assigned when you downloaded it.
-write_csv(the_raw_data, "inputs/data/raw_data.csv") 
-
-         
+write_parquet(ces2020, "data/raw_data/ces2020_raw.parquet")

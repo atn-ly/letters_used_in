@@ -1,44 +1,86 @@
 #### Preamble ####
-# Purpose: Cleans the raw plane data recorded by two observers..... [...UPDATE THIS...]
-# Author: Rohan Alexander [...UPDATE THIS...]
-# Date: 6 April 2023 [...UPDATE THIS...]
-# Contact: rohan.alexander@utoronto.ca [...UPDATE THIS...]
+# Purpose: 
+# Author: Renfrew Ao-Ieong
+# Date: 11 March 2024
+# Contact: renfrew.aoieong@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: [...UPDATE THIS...]
-# Any other information needed? [...UPDATE THIS...]
+# Pre-requisites: tidyverse, arrow
 
 #### Workspace setup ####
 library(tidyverse)
+library(arrow)
 
 #### Clean data ####
-raw_data <- read_csv("inputs/data/plane_data.csv")
+# votereg: Are you registered to vote?
+# cc20_410: For whom did you vote for President of the United States?
+# gender: Are you…?
+# race: What racial or ethnic group best describes you?
+# gunown: Do you or does anyone in your household own a gun?
 
-cleaned_data <-
-  raw_data |>
-  janitor::clean_names() |>
-  select(wing_width_mm, wing_length_mm, flying_time_sec_first_timer) |>
-  filter(wing_width_mm != "caw") |>
+ces2020 <-
+  read_parquet(
+    "data/raw_data/ces2020_raw.parquet",
+    col_types =
+      cols(
+        "votereg" = col_integer(),
+        "CC20_410" = col_integer(),
+        "gender" = col_integer(),
+        "race" = col_integer(),
+        "gunown" = col_integer()
+      )
+  )
+
+ces2020 <-
+  ces2020 |>
+  filter(votereg == 1,
+         CC20_410 %in% c(1, 2)) |>
   mutate(
-    flying_time_sec_first_timer = if_else(flying_time_sec_first_timer == "1,35",
-                                   "1.35",
-                                   flying_time_sec_first_timer)
+    voted_for = if_else(CC20_410 == 1, "Biden", "Trump"),
+    voted_for = as_factor(voted_for),
+    gender = if_else(gender == 1, "Male", "Female"),
+    gender = as_factor(gender),
+    race = case_when(
+      race == 1 ~ "White",
+      race == 2 ~ "Black",
+      race == 3 ~ "Hispanic",
+      race == 4 ~ "Asian",
+      race == 5 ~ "Native American",
+      race == 6 ~ "Middle Eastern",
+      race == 7 ~ "Two or more races",
+      race == 8 ~ "Other"
+    ),
+    race = factor(
+      race,
+      levels = c(
+        "White",
+        "Black",
+        "Hispanic",
+        "Asian",
+        "Native American",
+        "Middle Eastern",
+        "Two or more races",
+        "Other"
+      )
+    ),
+    gun_ownership = case_when(
+      gunown == 1 ~ "Personally own a gun",
+      gunown == 2 ~ "Don't personally own a gun, but someone in the household owns a gun",
+      gunown == 3 ~ "No one in the household owns a gun",
+      gunown == 4 ~ "Not sure",
+    ),
+    gun_ownership = factor(
+      gun_ownership,
+      levels = c(
+        "Personally own a gun",
+        "Don't personally own a gun, but someone in the household owns a gun",
+        "No one in the household owns a gun",
+        "Not sure"
+      )
+    ),
   ) |>
-  mutate(wing_width_mm = if_else(wing_width_mm == "490",
-                                 "49",
-                                 wing_width_mm)) |>
-  mutate(wing_width_mm = if_else(wing_width_mm == "6",
-                                 "60",
-                                 wing_width_mm)) |>
-  mutate(
-    wing_width_mm = as.numeric(wing_width_mm),
-    wing_length_mm = as.numeric(wing_length_mm),
-    flying_time_sec_first_timer = as.numeric(flying_time_sec_first_timer)
-  ) |>
-  rename(flying_time = flying_time_sec_first_timer,
-         width = wing_width_mm,
-         length = wing_length_mm
-         ) |> 
-  tidyr::drop_na()
+  select(voted_for, gender, race, gun_ownership)
+
+ces2020
 
 #### Save data ####
-write_csv(cleaned_data, "outputs/data/analysis_data.csv")
+write_parquet(ces2020, "data/analysis_data/analysis_data.parquet")
