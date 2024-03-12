@@ -1,5 +1,5 @@
 #### Preamble ####
-# Purpose: 
+# Purpose: Cleans the data from ces2020_raw.parquet
 # Author: Renfrew Ao-Ieong
 # Date: 11 March 2024
 # Contact: renfrew.aoieong@mail.utoronto.ca
