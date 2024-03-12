@@ -2,8 +2,9 @@
 title: "My title"
 subtitle: "My subtitle if needed"
 author: 
-  - First author
-  - Another author
+  - Tam Ly
+  - Renfrew Ao-Ieong
+  - Rahma Binth Mohammad
 thanks: "Code and data are available at: LINK."
 date: today
 date-format: long
@@ -24,11 +25,20 @@ library(tidyverse)
 
 # Introduction
 
+The United States (US) presidential election of 2020 resulted in President Joe Biden’s victory, making him the 46th President of the US. The two top runners were Biden for the Democrats and former President Donald Trump for the Republicans. The presidential race between the two was of significant interest to statisticians and polling experts due to its potential impact on polling models and election forecasting. To provide some background, President Biden ran on his merit as a former Vice President of eight years and had faced lots of criticism during his time in office. Moreover, Former President Trump had controversial and career-damaging events. During the 2016 lections, Trump even faced Before the 2020 elections, Trump was charged with misconduct while in office(cite). However, the senate acquitted him of those charges. Thus, both Biden and Trump faced criticism from the electorate. An interesting question to consider is despite these, what characteristics did the voters have? Do they tell us a story on the type of people that voted for Biden and the type that voted for Trump? Answering these questions can help develop polling models and future election forecasting.
+
+For our paper, we used a logistic regression model to estimate the likelihood of voting for Biden or Trump given certain characteristics. We use a binary outcome variable and three predictor variables. Our estimand is the probability that an individual voted for Biden or Trump based on three characteristics, their gender, race, and ownership of a gun. The reason for this choice will be further examined in @sec-model. This data driven approach to elections can bring insight to voter characteristics and the importance of survey data and knowing the electorate.
+
+[insert more of what was done and what was found - overview of results section]
+
+The survey data for this paper is from the Harvard Dataverse Repository. The Cooperative Election Study is a sample survey that consists of pre-election and post-election questions. They provide a guide and a dataset for numerous years. It is also open to the public. [add more]
+
+Data for this analysis and the different applications used will be further introduced in @sec-data. @sec-model provides the model set-up and the justification for the use of that model. @sec-results will show results and @sec-discussion is a discussion of the results including the paper’s weaknesses and biases. 
 
 # Data {#sec-data}
 
 
-# Model
+# Model {#sec-model}
 
 ## Model set-up
 
@@ -62,10 +72,10 @@ In our model, we also have the parameters $\alpha$, $\beta$, $\gamma$, and $\del
 ## Model justification
 
 
-# Results
+# Results {#sec-results}
 
 
-# Discussion
+# Discussion {#sec-discussion}
 
 ## First discussion point {#sec-first-point}
 
