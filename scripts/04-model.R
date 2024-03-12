@@ -1,5 +1,5 @@
 #### Preamble ####
-# Purpose: Models political preference based on their gender and race.
+# Purpose: Models political preference based on their gender, race, and gun ownership.
 # Author: Renfrew Ao-Ieong, Rahma Binth Mohammad, Tam Ly
 # Date: 10 March 2024
 # Contact: renfrew.aoieong@mail.utoronto.ca, rahma.binthmohammad@mail.utoronto.ca, annatn.ly@mail.utoronto.ca
