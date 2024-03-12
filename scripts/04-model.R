@@ -16,7 +16,7 @@ library(arrow)
 ces2020_analysis_data <- read_parquet("data/analysis_data/ces2020_analysis_data.parquet")
 
 ### Model data ####
-set.seed(853)
+set.seed(321)
 
 political_preferences <-
   stan_glm(
@@ -26,7 +26,7 @@ political_preferences <-
     prior = normal(location = 0, scale = 2.5, autoscale = TRUE),
     prior_intercept = normal(location = 0, scale = 2.5, autoscale = TRUE),
     prior_aux = exponential(rate = 1, autoscale = TRUE),
-    seed = 853
+    seed = 321
   )
 
 #### Save model ####
