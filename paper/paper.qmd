@@ -93,6 +93,19 @@ The foundation of logistic regression is the Bernoulli distribution and logit fu
 In our model, we also have the parameters $\alpha$, $\beta$, $\gamma$, and $\delta$ in addition to the variables. The parameter $\alpha$ is the intercept and the parameters, $\beta$, $\gamma$, and $\delta$, are the slope coefficients. We specify prior probability distributions for each of the parameters in our model, but these are just the default priors that `rstanarm` [@rstanarm] uses (Normal distribution with mean and standard deviation of 0 and 2.5).
 
 ## Model justification
+[Paragraph 1: How features enter the model and why → link with data section]
+
+We chose gender, race, and gun ownership status to be the predictor variables in our model. These features were chosen based on our data section. [more explanation] First, we expect a negative relationship between men and support for Biden. [more explanation] Second, we expect a positive relationship between non-white respondents and support for Biden. [more explanation] Third, we expect a negative relationship between gun owners and support for Biden. [more explanation]
+
+[Paragraph 2: Assumptions that underpin the model]
+
+Logistic regression does not make the same assumptions as linear regression. First, linear regression assumes a continuous outcome variable that can take any number on the real line, whereas logistic regression assumes a binary outcome variable. Furthermore, linear regression requires that the outcome variable is a linear function of the predictor variables, while the outcome in logistic regression is part of the exponential family. However, logistic regression does assume that the relationship between the log-odds of the binary outcome and predictor variables is linear. Lastly, unlike in linear regression, logistic regression does not require the assumption of homoscedasticity of errors.
+
+[Paragraph 3: Alternative models or variants; Strengths and weaknesses; Circumstances in which the model may not be appropriate]
+
+Alternative regression models were considered, but rejected because they were not appropriate for our outcome variable. Linear models assume a continuous outcome variable, and Poisson and Negative binomial models assume count outcome variables. Since our outcome variable is binary, we chose to use logistic regression.
+
+[Paragraph 4: Evidence of model validation and checking, model convergence, and/or diagnostic issues]
 
 
 # Results [In progress...] {#sec-results}
