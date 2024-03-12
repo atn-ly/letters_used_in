@@ -1,8 +1,8 @@
 #### Preamble ####
 # Purpose: Simulates a dataset where the chance that a person supports Trump depends on their gender, race, and gun ownership
-# Author: Renfrew Ao-Ieong
+# Author: Renfrew Ao-Ieong, Rahma Binth Mohammad, Tam Ly
 # Date: 11 March 2024
-# Contact: renfrew.aoieong@mail.utoronto.ca
+# Contact: renfrew.aoieong@mail.utoronto.ca, rahma.binthmohammad@mail.utoronto.ca, annatn.ly@mail.utoronto.ca
 # License: MIT
 # Pre-requisites: tidyverse
 

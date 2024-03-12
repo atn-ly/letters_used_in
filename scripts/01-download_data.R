@@ -1,8 +1,8 @@
 #### Preamble ####
 # Purpose: Downloads and saves data from CES 2020 (Cooperative Election Study Common Content, 2020)
-# Author: Renfrew Ao-Ieong
+# Author: Renfrew Ao-Ieong, Rahma Binth Mohammad, Tam Ly
 # Date: 11 March 2024
-# Contact: renfrew.aoieong@mail.utoronto.ca
+# Contact: renfrew.aoieong@mail.utoronto.ca, rahma.binthmohammad@mail.utoronto.ca, annatn.ly@mail.utoronto.ca
 # License: MIT
 # Pre-requisites: tidyverse, dataverse, arrow
 

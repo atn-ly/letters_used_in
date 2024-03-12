@@ -1,10 +1,10 @@
 #### Preamble ####
 # Purpose: Cleans the data from ces2020_raw.parquet
-# Author: Renfrew Ao-Ieong
+# Author: Renfrew Ao-Ieong, Rahma Binth Mohammad, Tam Ly
 # Date: 11 March 2024
-# Contact: renfrew.aoieong@mail.utoronto.ca
+# Contact: renfrew.aoieong@mail.utoronto.ca, rahma.binthmohammad@mail.utoronto.ca, annatn.ly@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: tidyverse, arrow
+# Pre-requisites: tidyverse, arrow, the file: /data/analysis_data/ces2020_raw.parquet either from the repository or from running /scripts/01-download_data.R
 
 #### Workspace setup ####
 library(tidyverse)
