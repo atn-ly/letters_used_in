@@ -1,11 +1,11 @@
 ---
-title: "My title"
-subtitle: "My subtitle if needed"
+title: "Voter Characteristics and Political Support in the US"
+# subtitle: "My subtitle if needed"
 author: 
   - Tam Ly
   - Renfrew Ao-Ieong
   - Rahma Binth Mohammad
-thanks: "Code and data are available at: LINK."
+thanks: "Code and data are available at: https://github.com/atn-ly/political_support_in_the_us"
 date: today
 date-format: long
 abstract: "First sentence. Second sentence. Third sentence. Fourth sentence."
@@ -20,6 +20,18 @@ bibliography: references.bib
 #| message: false
 
 library(tidyverse)
+library(knitr)
+library(here)
+library(ggplot2)
+library(arrow)
+library(scales)
+
+#### Read in cleaned data ####
+
+ces2020 = read_parquet(
+  file = here("data/analysis_data/ces2020_analysis_data.parquet"),
+  show_col_types = FALSE
+)
 ```
 
 
@@ -83,7 +95,53 @@ In our model, we also have the parameters $\alpha$, $\beta$, $\gamma$, and $\del
 ## Model justification
 
 
-# Results {#sec-results}
+# Results [In progress...] {#sec-results}
+
+```{r}
+#| echo: false
+#| message: false
+#| label: tmp-label1
+#| tbl-cap: tmp-caption1
+
+ces2020 |>
+  ggplot(aes(x = race, fill = voted_for)) +
+  stat_count(position = "dodge") +
+  facet_wrap(facets = vars(gender)) +
+  theme_minimal() +
+  labs(
+    x = "Race",
+    y = "Number of respondents",
+    fill = "Voted for"
+  ) +
+  coord_flip() +
+  scale_x_discrete(limits = rev) +
+  scale_fill_brewer(palette = "Set1") +
+  theme(legend.position = "bottom")
+
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| label: tmp-label2
+#| tbl-cap: tmp-caption2
+
+ces2020 |>
+  ggplot(aes(x = gun_ownership, fill = voted_for)) +
+  stat_count(position = "dodge") +
+  facet_wrap(facets = vars(gender)) +
+  theme_minimal() +
+  labs(
+    x = "Gun Ownership",
+    y = "Number of respondents",
+    fill = "Voted for"
+  ) +
+  coord_flip() +
+  scale_x_discrete(limits = rev, labels = label_wrap(10)) +
+  scale_fill_brewer(palette = "Set1") +
+  theme(legend.position = "bottom")
+
+```
 
 
 # Discussion {#sec-discussion}

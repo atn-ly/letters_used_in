@@ -63,18 +63,20 @@ ces2020 <-
       )
     ),
     gun_ownership = case_when(
-      gunown == 1 ~ "Personally own a gun",
-      gunown == 2 ~ "Don't personally own a gun, but someone in the household owns a gun",
-      gunown == 3 ~ "No one in the household owns a gun",
-      gunown == 4 ~ "Not sure",
+      gunown == 1 ~ "Personal",
+      gunown == 2 ~ "Someone in the household",
+      gunown == 3 ~ "No one in the household",
+      gunown == 8 ~ "Not sure",
+      TRUE ~ "No Answer"  # NA values, set to No Answer
     ),
     gun_ownership = factor(
       gun_ownership,
       levels = c(
-        "Personally own a gun",
-        "Don't personally own a gun, but someone in the household owns a gun",
-        "No one in the household owns a gun",
-        "Not sure"
+        "Personal",
+        "Someone in the household",
+        "No one in the household",
+        "Not sure",
+        "No Answer"
       )
     ),
   ) |>
@@ -83,4 +85,4 @@ ces2020 <-
 ces2020
 
 #### Save data ####
-write_parquet(ces2020, "data/analysis_data/analysis_data.parquet")
+write_parquet(ces2020, "data/analysis_data/ces2020_analysis_data.parquet")
