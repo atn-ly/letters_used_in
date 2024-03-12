@@ -1,11 +1,10 @@
-# Starter folder
+# Voter Characteristics and Political Support in the US
 
 ## Overview
 
-This repo provides students with a foundation for their own projects associated with *Telling Stories with Data*. You do not need every aspect for every paper and you should delete aspects that you do not need.
+This repository consists of the files to create the paper titled Voter Characteristics and Political Support in the US.
 
-To use this folder, click the green "Code" button", then "Download ZIP". Move the downloaded folder to where you want to work on your own computer, and then modify it to suit.
-
+The R Code in this repo was adaped from Alexander (2023)
 
 ## File Structure
 
