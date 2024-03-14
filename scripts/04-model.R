@@ -18,10 +18,10 @@ ces2020_analysis_data <- read_parquet("data/analysis_data/ces2020_analysis_data.
 ### Model data ####
 set.seed(321)
 
-# Randomly sample 1000 observations in the interest of run-time
+# Randomly sample 5000 observations in the interest of run-time
 ces2020_reduced <- 
   ces2020_analysis_data |> 
-  slice_sample(n = 1000)
+  slice_sample(n = 5000)
 
 political_preferences <-
   stan_glm(
