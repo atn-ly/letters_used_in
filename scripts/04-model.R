@@ -18,10 +18,15 @@ ces2020_analysis_data <- read_parquet("data/analysis_data/ces2020_analysis_data.
 ### Model data ####
 set.seed(321)
 
+# Randomly sample 1000 observations in the interest of run-time
+ces2020_reduced <- 
+  ces2020_analysis_data |> 
+  slice_sample(n = 1000)
+
 political_preferences <-
   stan_glm(
     voted_for ~ gender + race + gun_ownership,
-    data = ces2020_analysis_data,
+    data = ces2020_reduced,
     family = binomial(link = "logit"),
     prior = normal(location = 0, scale = 2.5, autoscale = TRUE),
     prior_intercept = normal(location = 0, scale = 2.5, autoscale = TRUE),

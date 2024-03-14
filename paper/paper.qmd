@@ -157,6 +157,19 @@ ces2020 |>
 ```
 
 
+TEST:
+```{r}
+library(modelsummary)
+
+modelsummary(
+  list(
+    "Support Biden" = political_preferences
+  ),
+  statistic = "mad"
+  )
+```
+
+
 # Discussion {#sec-discussion}
 
 ## First discussion point {#sec-first-point}
