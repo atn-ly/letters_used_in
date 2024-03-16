@@ -2,7 +2,7 @@
 
 ## Overview
 
-This repository consists of the files needed to create the paper titled Biden More Favorable Among Female, Black, Asian, Hispanic, Middle Eastern, and Non-gun Owning Voters in the 2020 US Presidential Election. It provides insights into voter behavior during the election, identifying the probability of voting for Biden or Trump. By examining demographic trends,it can help improve polling models and election forecasting methods.  
+This repository consists of the files needed to create the paper titled Biden More Favorable Among Female, Black, Asian, Hispanic, Middle Eastern, and Non-gun Owning Voters in the 2020 US Presidential Election. It provides insights into voter behavior during the election, identifying the probability of voting for Biden or Trump. By examining demographic trends, it can help improve polling models and election forecasting methods.  
 
 ## File Structure
 
