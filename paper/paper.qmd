@@ -61,7 +61,7 @@ The survey data for this paper is from the Harvard Dataverse Repository. The Coo
 
 Our paper aims to address the following two questions using the data: (1) Does gender and race play a role in political preference? (2) Do those that own a gun favor one candidate over the other?
 
-The language and environment used for this analysis is R [@citeR], alongside the tidyverse [@tidyverse], dataverse [@dataverse], arrow [@arrow], rstanarm [@rstanarm], knitr [@knitr], here [@here], ggplot2 [@ggplot2], scales [@scales], modelsummary [@modelsummary], and marginaleffects [@marginaleffects] packages. 
+The language and environment used for this analysis is `R` [@citeR], alongside the `tidyverse` [@tidyverse], `dataverse` [@dataverse], `arrow` [@arrow], `rstanarm` [@rstanarm], `knitr` [@knitr], `here` [@here], `ggplot2` [@ggplot2], `scales` [@scales], `modelsummary` [@modelsummary], and `marginaleffects` [@marginaleffects] packages. 
 
 ## Variables and Measurement
 
