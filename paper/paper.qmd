@@ -63,7 +63,7 @@ Data for this analysis and the different applications used will be further intro
 #| message: false
 #| label: tmp-label1
 #| tbl-cap: tmp-caption1
-
+# Code adapted from https://tellingstorieswithdata.com/13-ijaglm.html#logistic-regression
 ces2020 |>
   ggplot(aes(x = race, fill = voted_for)) +
   stat_count(position = "dodge") +
@@ -86,7 +86,7 @@ ces2020 |>
 #| message: false
 #| label: tmp-label2
 #| tbl-cap: tmp-caption2
-
+# Code adapted from https://tellingstorieswithdata.com/13-ijaglm.html#logistic-regression
 ces2020 |>
   ggplot(aes(x = gun_ownership, fill = voted_for)) +
   stat_count(position = "dodge") +
@@ -216,6 +216,8 @@ From the model, we used `predictions()` from `marginaleffects` [@marginaleffects
 #| warning: false
 #| label: fig-model-gender
 #| fig-cap: "Predicted support of Biden given gender vs. actual support"
+
+# Code adapted from https://tellingstorieswithdata.com/13-ijaglm.html#logistic-regression
 political_predictions |>
   mutate(gender = factor(gender)) |>
   ggplot(aes(x = gender, y = estimate, color = voted_for)) +
@@ -238,6 +240,8 @@ Using the results in @tbl-biden-or-trump-predictions, we plotted three graphs us
 #| warning: false
 #| label: fig-model-race
 #| fig-cap: "Predicted support of Biden given race vs. actual support"
+
+# Code adapted from https://tellingstorieswithdata.com/13-ijaglm.html#logistic-regression
 political_predictions |>
   mutate(race = factor(race)) |>
   ggplot(aes(x = race, y = estimate, color = voted_for)) +
@@ -261,6 +265,8 @@ political_predictions |>
 #| warning: false
 #| label: fig-model-gun-owner
 #| fig-cap: "Predicted support of Biden given gun ownership vs. actual support"
+
+# Code adapted from https://tellingstorieswithdata.com/13-ijaglm.html#logistic-regression
 political_predictions |>
   mutate(gun_ownership = factor(gun_ownership)) |>
   ggplot(aes(x = gun_ownership, y = estimate, color = voted_for)) +
