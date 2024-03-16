@@ -67,7 +67,6 @@ ces2020 <-
       gunown == 2 ~ "Someone in the household",
       gunown == 3 ~ "No one in the household",
       gunown == 8 ~ "Not sure",
-      TRUE ~ "No Answer"  # NA values, set to No Answer
     ),
     gun_ownership = factor(
       gun_ownership,
@@ -75,8 +74,7 @@ ces2020 <-
         "Personal",
         "Someone in the household",
         "No one in the household",
-        "Not sure",
-        "No Answer"
+        "Not sure"
       )
     ),
   ) |>

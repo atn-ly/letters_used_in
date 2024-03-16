@@ -1,15 +1,50 @@
 #### Preamble ####
-# Purpose: Tests... [...UPDATE THIS...]
-# Author: Rohan Alexander [...UPDATE THIS...]
-# Date: 11 February 2023 [...UPDATE THIS...]
-# Contact: rohan.alexander@utoronto.ca [...UPDATE THIS...]
+# Purpose: Tests for ces2020_analysis_data.parquet file
+# Author: Renfrew Ao-Ieong, Rahma Binth Mohammad, Tam Ly
+# Date: 15 March 2024
+# Contact: renfrew.aoieong@mail.utoronto.ca, rahma.binthmohammad@mail.utoronto.ca, annatn.ly@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: [...UPDATE THIS...]
-# Any other information needed? [...UPDATE THIS...]
+# Pre-requisites: Run the "02-data.cleaning.R" script to generate ces2020_analysis_data.parquet
 
 
 #### Workspace setup ####
 library(tidyverse)
-# [...UPDATE THIS...]
+library(arrow)
+
+#### Read data ####
+ces2020_analysis_data <- read_parquet("data/analysis_data/ces2020_analysis_data.parquet")
 
 #### Test data ####
+# Check dataset contains 43240 observations (for reproducibility)
+nrow(ces2020_analysis_data) == 43240
+# Check voted_for is a factor and includes Biden and Trump only
+all(sapply(ces2020_analysis_data$voted_for, is.factor))
+length(levels(ces2020_analysis_data$voted_for)) == 2
+"Trump" %in% levels(ces2020_analysis_data$voted_for) && "Biden" %in% levels(ces2020_analysis_data$voted_for)
+
+# Check gender is a factor only including 1 and 2 (Male, Female respectively)
+all(sapply(ces2020_analysis_data$gender, is.factor))
+length(levels(ces2020_analysis_data$gender)) == 2
+"Male" %in% levels(ces2020_analysis_data$gender) && "Female" %in% levels(ces2020_analysis_data$gender)
+
+# Check race is an factor [1-8] and all races in dataset are included
+all(sapply(ces2020_analysis_data$race, is.factor))
+length(levels(ces2020_analysis_data$race)) == 8
+
+"White" %in% levels(ces2020_analysis_data$race) && 
+"Black" %in% levels(ces2020_analysis_data$race) &&
+"Hispanic" %in% levels(ces2020_analysis_data$race) &&
+"Asian" %in% levels(ces2020_analysis_data$race) &&
+"Native American" %in% levels(ces2020_analysis_data$race) &&
+"Middle Eastern" %in% levels(ces2020_analysis_data$race) &&
+"Two or more races" %in% levels(ces2020_analysis_data$race) &&
+"Other" %in% levels(ces2020_analysis_data$race)
+  
+# Check gun_ownership is an factor [1-4] and all categories in dataset are included
+all(sapply(ces2020_analysis_data$gun_ownership, is.factor))
+length(levels(ces2020_analysis_data$gun_ownership)) == 4
+"Personal" %in% levels(ces2020_analysis_data$gun_ownership) && 
+"Someone in the household" %in% levels(ces2020_analysis_data$gun_ownership) &&
+"No one in the household" %in% levels(ces2020_analysis_data$gun_ownership) &&
+"Not sure" %in% levels(ces2020_analysis_data$gun_ownership)
+
