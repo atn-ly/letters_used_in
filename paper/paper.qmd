@@ -62,8 +62,8 @@ Data for this analysis and the different applications used will be further intro
 ```{r}
 #| echo: false
 #| message: false
-#| label: tmp-label1
-#| tbl-cap: tmp-caption1
+#| label: fig-race-gender
+#| fig-cap: Support for Trump or Biden based on gender and race
 # Code adapted from https://tellingstorieswithdata.com/13-ijaglm.html#logistic-regression
 ces2020 |>
   ggplot(aes(x = race, fill = voted_for)) +
@@ -85,8 +85,8 @@ ces2020 |>
 ```{r}
 #| echo: false
 #| message: false
-#| label: tmp-label2
-#| tbl-cap: tmp-caption2
+#| label: fig-gun-ownership-gender
+#| fig-cap: Support for Trump or Biden based on gender and gun ownership
 # Code adapted from https://tellingstorieswithdata.com/13-ijaglm.html#logistic-regression
 ces2020 |>
   ggplot(aes(x = gun_ownership, fill = voted_for)) +
@@ -190,7 +190,7 @@ We can see that for the variable `genderFemale`, we have a coefficient of 0.235 
 
 ## Race
 
-We can see that Black individuals show a much stronger support for Biden as the coefficient for `raceBlack` is 2.464. Asian, Hispanic, and Middle Eastern individuals all show an increase in support for Biden with coefficients of 0.790, 0.548, and 0.288 respectively. Native Americans show a decrease in support for Biden with a coefficient of -0.536 while individuals of two or more races show neither an increase nor decrease in support for Biden with a coefficient of -0.008.
+We can see that Black individuals show a much stronger support for Biden as the coefficient for `raceBlack` is 2.464. Asian, Hispanic, and Middle Eastern individuals all show an increase in support for Biden with coefficients of 0.790, 0.548, and 0.288 respectively. Native Americans and Other show a decrease in support for Biden with a coefficient of -0.536 and -0.333 respectively while individuals of two or more races show neither an increase nor decrease in support for Biden with a coefficient of -0.008.
 
 ## Gun Ownership
 
