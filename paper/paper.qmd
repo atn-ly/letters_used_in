@@ -29,6 +29,7 @@ library(ggplot2)
 library(arrow)
 library(scales)
 library(modelsummary)
+library(marginaleffects )
 
 # Read in cleaned data
 ces2020 = read_parquet(
@@ -56,6 +57,52 @@ Data for this analysis and the different applications used will be further intro
 
 
 # Data {#sec-data}
+
+```{r}
+#| echo: false
+#| message: false
+#| label: tmp-label1
+#| tbl-cap: tmp-caption1
+
+ces2020 |>
+  ggplot(aes(x = race, fill = voted_for)) +
+  stat_count(position = "dodge") +
+  facet_wrap(facets = vars(gender)) +
+  theme_minimal() +
+  labs(
+    x = "Race",
+    y = "Number of respondents",
+    fill = "Voted for"
+  ) +
+  coord_flip() +
+  scale_x_discrete(limits = rev) +
+  scale_fill_brewer(palette = "Set1") +
+  theme(legend.position = "bottom")
+
+```
+
+```{r}
+#| echo: false
+#| message: false
+#| label: tmp-label2
+#| tbl-cap: tmp-caption2
+
+ces2020 |>
+  ggplot(aes(x = gun_ownership, fill = voted_for)) +
+  stat_count(position = "dodge") +
+  facet_wrap(facets = vars(gender)) +
+  theme_minimal() +
+  labs(
+    x = "Gun Ownership",
+    y = "Number of respondents",
+    fill = "Voted for"
+  ) +
+  coord_flip() +
+  scale_x_discrete(limits = rev, labels = label_wrap(10)) +
+  scale_fill_brewer(palette = "Set1") +
+  theme(legend.position = "bottom")
+
+```
 
 ## Sources and Collection
 
@@ -112,53 +159,124 @@ Alternative regression models were considered, but rejected because they were no
 To show that our model does a good job of fitting the data, we consider the posterior distribution and implement posterior predictive checks. Details and graphs can be found in @sec-model-details. Furthermore, we check if the Markov Chain Monte Carlo (MCMC) sampling algorithm that `rstanarm` uses to obtain samples from the posterior distributions of interest ran into any issues. Details and graphs can be found in @sec-model-details.
 
 
-# Results [In progress...] {#sec-results}
+# Results {#sec-results}
 
 ```{r}
 #| echo: false
 #| message: false
-#| label: tmp-label1
-#| tbl-cap: tmp-caption1
+#| warning: false
+#| label: tbl-model-summary-table
+#| tbl-cap: "Explanatory models of political preferences based on gender, race, and gun ownership (n = 5000)"
+library(modelsummary)
 
-ces2020 |>
-  ggplot(aes(x = race, fill = voted_for)) +
-  stat_count(position = "dodge") +
-  facet_wrap(facets = vars(gender)) +
-  theme_minimal() +
+modelsummary(
+  list(
+    "Support Biden" = political_preferences
+  ),
+  statistic = "mad"
+  )
+```
+
+We performed logistic regression analysis on 5000 observations; a subset of the total 43240 observations from our cleaned dataset. Since we are interested in which presidential candidate an individual voted for based on the categories explained earlier, our model made `genderMale`, `raceWhite`, `gun_ownershipPersonal` into reference groups for their respective categories.
+
+Our results from the model given by @tbl-model-summary-table shows the coefficient of each indicator variable. This coefficient represents the log of the expected difference in support for Biden compared to Trump. When this value is negative, it shows a decrease in support for Biden, when this value is 0 it shows neither a decrease nor increase in support for Biden. When this value is positive, it shows an increase in support for Biden.
+
+The intercept is -0.748 which means that the support for Biden decreases by about 0.784 units when all other variables are held constant. By holding all variables constant, we have an individual who is Male, White, and personally owns a gun.
+
+## Gender
+
+We can see that for the variable `genderFemale`, we have a coefficient of 0.235 indicating an increase in support for Biden over the reference group being `genderMale`, while keeping the other variables constant.
+
+## Race
+
+We can see that Black individuals show a much stronger support for Biden as the coefficient for `raceBlack` is 2.464. Asian, Hispanic, and Middle Eastern individuals all show an increase in support for Biden with coefficients of 0.790, 0.548, and 0.288 respectively. Native Americans show a decrease in support for Biden with a coefficient of -0.536 while individuals of two or more races show neither an increase nor decrease in support for Biden with a coefficient of -0.008.
+
+## Gun Ownership
+
+For gun ownership, we can see that if an individual does not personally own a gun but someone in their household does, the coefficient is 0.870 which shows an increase in support for Biden. If nobody in an individual’s household owns a gun, the coefficient is 1.332 showing a strong support for Biden. When an individual does not own a gun and is not sure if anyone in their household owns a gun, the coefficient is -0.815 showing a decrease in support for Biden.
+
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| label: tbl-biden-or-trump-predictions
+#| tbl-cap: "Probability that an individual supports Biden given their demographic"
+political_predictions <-
+  predictions(political_preferences)
+
+knitr::kable(head(political_predictions))
+```
+
+From the model, we used `predictions()` from `marginaleffects` [@marginaleffects] to obtain the implied probability that an individual supports Biden. A sample of the result is given in @tbl-biden-or-trump-predictions where each individual is given an `estimate` value which is the estimated probability that the individual supports Biden.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| label: fig-model-gender
+#| fig-cap: "Predicted support of Biden given gender vs. actual support"
+political_predictions |>
+  mutate(gender = factor(gender)) |>
+  ggplot(aes(x = gender, y = estimate, color = voted_for)) +
+  geom_jitter(width = 0.01, height = 0.01, alpha = 0.3) +
+  labs(
+    x = "Gender",
+    y = "Estimated probability that an \n individual voted for Biden",
+    color = "Candidate actually voted for"
+  ) +
+  theme_classic() +
+  scale_color_brewer(palette = "Set1") +
+  theme(legend.position = "bottom")
+```
+
+Using the results in @tbl-biden-or-trump-predictions, we plotted three graphs using `ggplot2` [@ggplot2] which shows the estimated probability that an individual supports Biden given gender, race, and gun ownership with the colour of the point indicating their true support. @fig-model-gender shows the estimated probability that an individual supports Biden given gender. To support the accuracy of our model, blue dots should be higher up on the graph while red dots should be lower down indicating that our predicted probability matches with the actual result. We can see in @fig-model-gender that this trend holds true.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| label: fig-model-race
+#| fig-cap: "Predicted support of Biden given race vs. actual support"
+political_predictions |>
+  mutate(race = factor(race)) |>
+  ggplot(aes(x = race, y = estimate, color = voted_for)) +
+  geom_jitter(width = 0.01, height = 0.01, alpha = 0.3) +
   labs(
     x = "Race",
-    y = "Number of respondents",
-    fill = "Voted for"
+    y = "Estimated probability that an \n individual voted for Biden",
+    color = "Candidate actually voted for"
   ) +
-  coord_flip() +
-  scale_x_discrete(limits = rev) +
-  scale_fill_brewer(palette = "Set1") +
-  theme(legend.position = "bottom")
-
+  theme_classic() +
+  scale_color_brewer(palette = "Set1") +
+  theme(legend.position = "bottom") +
+  scale_x_discrete(guide = guide_axis(n.dodge=2))
 ```
+
+@fig-model-race shows the estimated probability that an individual supports Biden given race. There appears to be red dots near the top for White, Native American, Middle Eastern, and Two or more races which indicates possible inaccuracy in our model. However, Black, Hispanic and Asian appears to follow the expected distribution of the dots.
 
 ```{r}
 #| echo: false
 #| message: false
-#| label: tmp-label2
-#| tbl-cap: tmp-caption2
-
-ces2020 |>
-  ggplot(aes(x = gun_ownership, fill = voted_for)) +
-  stat_count(position = "dodge") +
-  facet_wrap(facets = vars(gender)) +
-  theme_minimal() +
+#| warning: false
+#| label: fig-model-gun-owner
+#| fig-cap: "Predicted support of Biden given gun ownership vs. actual support"
+political_predictions |>
+  mutate(gun_ownership = factor(gun_ownership)) |>
+  ggplot(aes(x = gun_ownership, y = estimate, color = voted_for)) +
+  geom_jitter(width = 0.01, height = 0.01, alpha = 0.3) +
   labs(
     x = "Gun Ownership",
-    y = "Number of respondents",
-    fill = "Voted for"
+    y = "Estimated probability that an \n individual voted for Biden",
+    color = "Candidate actually voted for"
   ) +
-  coord_flip() +
-  scale_x_discrete(limits = rev, labels = label_wrap(10)) +
-  scale_fill_brewer(palette = "Set1") +
-  theme(legend.position = "bottom")
-
+  theme_classic() +
+  scale_color_brewer(palette = "Set1") +
+  theme(legend.position = "bottom") +
+  scale_x_discrete(guide = guide_axis(n.dodge=2))
 ```
+
+@fig-model-gun-owner shows the estimated probability that an individual supports Biden given their gun ownership status. We can see that Personal gun ownership and the Not Sure if anyone in the household owns a gun categories show a lower support of Biden, while the No One in the household and the Someone else in the household owns a gun categories show a higher trend of support for Biden. There appears to be an expected cluster of blue dots higher up and red dots lower down, which supports the accuracy of our model.
 
 
 # Discussion {#sec-discussion}

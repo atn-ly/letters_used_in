@@ -32,7 +32,7 @@ ces2020 <-
 
 ces2020 <-
   ces2020 |>
-  filter(votereg == 1,
+  filter(!is.na(gunown), votereg == 1,
          CC20_410 %in% c(1, 2)) |>
   mutate(
     voted_for = if_else(CC20_410 == 1, "Biden", "Trump"),
