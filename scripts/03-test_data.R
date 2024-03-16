@@ -5,7 +5,8 @@
 # Date: 15 March 2024
 # Contact: renfrew.aoieong@mail.utoronto.ca, rahma.binthmohammad@mail.utoronto.ca, annatn.ly@mail.utoronto.ca
 # License: MIT
-# Pre-requisites: Run the "02-data.cleaning.R" script to generate ces2020_analysis_data.parquet
+# Pre-requisites: Run the "02-data.cleaning.R" script to generate ces2020_analysis_data.parquet and "04-model.R to generate political_preferences.rds
+# Note: To check dataset without checking model, comment out lines 20-21 and 61-82
 
 
 #### Workspace setup ####
