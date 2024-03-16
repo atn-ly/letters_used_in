@@ -1,3 +1,4 @@
+
 #### Preamble ####
 # Purpose: Tests for ces2020_analysis_data.parquet file
 # Author: Renfrew Ao-Ieong, Rahma Binth Mohammad, Tam Ly
@@ -13,6 +14,10 @@ library(arrow)
 
 #### Read data ####
 ces2020_analysis_data <- read_parquet("data/analysis_data/ces2020_analysis_data.parquet")
+
+#### Read model ####
+political_preferences <-
+  readRDS(file = here::here("models/political_preferences.rds"))
 
 #### Test data ####
 # Check dataset contains 43240 observations (for reproducibility)
@@ -32,19 +37,47 @@ all(sapply(ces2020_analysis_data$race, is.factor))
 length(levels(ces2020_analysis_data$race)) == 8
 
 "White" %in% levels(ces2020_analysis_data$race) && 
-"Black" %in% levels(ces2020_analysis_data$race) &&
-"Hispanic" %in% levels(ces2020_analysis_data$race) &&
-"Asian" %in% levels(ces2020_analysis_data$race) &&
-"Native American" %in% levels(ces2020_analysis_data$race) &&
-"Middle Eastern" %in% levels(ces2020_analysis_data$race) &&
-"Two or more races" %in% levels(ces2020_analysis_data$race) &&
-"Other" %in% levels(ces2020_analysis_data$race)
-  
+  "Black" %in% levels(ces2020_analysis_data$race) &&
+  "Hispanic" %in% levels(ces2020_analysis_data$race) &&
+  "Asian" %in% levels(ces2020_analysis_data$race) &&
+  "Native American" %in% levels(ces2020_analysis_data$race) &&
+  "Middle Eastern" %in% levels(ces2020_analysis_data$race) &&
+  "Two or more races" %in% levels(ces2020_analysis_data$race) &&
+  "Other" %in% levels(ces2020_analysis_data$race)
+
 # Check gun_ownership is an factor [1-4] and all categories in dataset are included
 all(sapply(ces2020_analysis_data$gun_ownership, is.factor))
 length(levels(ces2020_analysis_data$gun_ownership)) == 4
 "Personal" %in% levels(ces2020_analysis_data$gun_ownership) && 
-"Someone in the household" %in% levels(ces2020_analysis_data$gun_ownership) &&
-"No one in the household" %in% levels(ces2020_analysis_data$gun_ownership) &&
-"Not sure" %in% levels(ces2020_analysis_data$gun_ownership)
+  "Someone in the household" %in% levels(ces2020_analysis_data$gun_ownership) &&
+  "No one in the household" %in% levels(ces2020_analysis_data$gun_ownership) &&
+  "Not sure" %in% levels(ces2020_analysis_data$gun_ownership)
+
+
+### Test model output ###
+# Check coefficients values are less than 20
+# If ends up being this high, may need to check model
+all(
+  political_preferences$coefficients[1] < 20,
+  political_preferences$coefficients[2] < 20,
+  political_preferences$coefficients[3] < 20,
+  political_preferences$coefficients[4] < 20,
+  political_preferences$coefficients[5] < 20,
+  political_preferences$coefficients[6] < 20,
+  political_preferences$coefficients[7] < 20,
+  political_preferences$coefficients[8] < 20
+)
+# Check coefficients values are greater than -20
+# If ends up being this low, may need to check model
+all(
+  political_preferences$coefficients[1] > -20,
+  political_preferences$coefficients[2] > -20,
+  political_preferences$coefficients[3] > -20,
+  political_preferences$coefficients[4] > -20,
+  political_preferences$coefficients[5] > -20,
+  political_preferences$coefficients[6] > -20,
+  political_preferences$coefficients[7] > -20,
+  political_preferences$coefficients[8] > -20
+)
+
 
