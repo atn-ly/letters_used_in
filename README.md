@@ -11,7 +11,7 @@ The repo is structured as:
 -   `data/raw_data` contains the raw data as obtained from the Cooperative Election Study Dataverse in the Harvard Dataverse Repository.
 -   `data/analysis_data` contains the cleaned dataset that was constructed.
 -   `model` contains fitted models. 
--   `other` contains sketches.
+-   `sketches` contains a sketch of the dataset and graph created during the plannign phase.
 -   `paper` contains the files used to generate the paper, including the Quarto document and reference bibliography file, as well as the PDF of the paper. 
 -   `scripts` contains the R scripts used to simulate, download, clean, test, and model the data.
 
