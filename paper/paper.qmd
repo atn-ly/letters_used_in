@@ -279,7 +279,7 @@ political_predictions |>
   scale_x_discrete(guide = guide_axis(n.dodge=2))
 ```
 
-@fig-model-gun-owner shows the estimated probability that an individual supports Biden given their gun ownership status. We can see that Personal gun ownership and the Not Sure if anyone in the household owns a gun categories show a lower support of Biden, while the No One in the household and the Someone else in the household owns a gun categories show a higher trend of support for Biden. There appears to be an expected cluster of blue dots higher up and red dots lower down, which supports the accuracy of our model.
+@fig-model-gun-owner shows the estimated probability that an individual supports Biden given their gun ownership status. We can see that the "Personal" and "Not sure" categories show a lower support of Biden, while the "No One in the household" and the "Someone in the household" categories show a higher trend of support for Biden. There appears to be an expected cluster of blue dots higher up and red dots lower down, which supports the accuracy of our model.
 
 
 # Discussion {#sec-discussion}
