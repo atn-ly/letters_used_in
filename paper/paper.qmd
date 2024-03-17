@@ -7,7 +7,7 @@ author:
 thanks: "Code and data are available at: [https://github.com/atn-ly/political_support_in_the_us](https://github.com/atn-ly/political_support_in_the_us)"
 date: 16 March 2024
 date-format: long
-abstract: "The outcome of the 2020 US Presidential Election served as a reflection of the beliefs and attitudes held by Americans. Using data obtained during the fall of 2020 from the Cooperative Election Study, we investigated if a person is likely to vote for Biden, based only on knowing their gender, race, and gun ownership status. The results of our analysis using a Bayesian logistic regression model show that female, Black, Asian, Hispanic, Middle Eastern, and non-gun owning individuals are more likely to support Biden. Our discovery highlights the importance of women’s issues, racial justice, and gun policy on American voters."
+abstract: "The outcome of the 2020 US Presidential Election served as a reflection of the beliefs and attitudes held by Americans. Using data obtained during the fall of 2020 from the Cooperative Election Study, we investigated if a person is likely to vote for Biden, based only on knowing their gender, race, and gun ownership status. The results of our analysis, using a Bayesian logistic regression model, show that female, Black, Asian, Hispanic, Middle Eastern, and non-gun owning individuals are more likely to support Biden. Our discovery highlights the importance of women’s issues, racial justice, and gun policy on American voters."
 format: pdf
 number-sections: true
 bibliography: references.bib
@@ -119,7 +119,7 @@ Data was downloaded and cleaned to suit our needs and during the data cleaning p
 
 ## Measurement
 
-We will now discuss how the variables, `gender`, `race`, and `gunown`, were measured and how they became an entry in our dataset. Each variable was associated with a related question, and the self-reported response of each individual from the online questionnaire was recorded in the dataset. Some notes on measurement error and missing data are required for each variable.
+We will now discuss how the variables `gender`, `race`, and `gunown` were measured and how they became an entry in our dataset. Each variable was associated with a related question, and the self-reported responses of each individual from the online questionnaire were recorded in the dataset. Some notes on measurement error and missing data are required for each variable.
 
 For the `gender` variable, individuals may choose to identify with diverse gender identities that are beyond the traditional categorization. The number of voters for genders other than male or female were not collected by CES, so we have missing data that we could not include in our analysis. From “Counting the Countless,” this can be considered a result of what Keyes’ refers to as the “administrative violence” that reinforces the gender binary [@counting]. 
 
@@ -162,7 +162,7 @@ In our model, we also have the parameters $\alpha$, $\beta$, $\gamma$, and $\del
 
 ## Model justification
 
-Given that Biden and Trump are far apart on women’s issues, racial justice, and gun policy, we  chose “gender”, “race”, and “gunown” to be the predictor variables in our model. First, since we are interested in forecasting who a respondent is likely to vote for, we used “gender” instead of “gender_post” because it is representative of all adult Americans registered to vote rather than only adult Americans who voted. Second, we used “race” instead of variables by country or region to affirm that race is a social construct with no biological foundation. Third, we used “gunown” instead of variables about gun control because it captures broader opinions rather than specific policy proposals. After exploring the data in the previous section, we found differences in political preference based on these features and that it would be of interest to investigate further.
+Given that Biden and Trump are far apart on women’s issues, racial justice, and gun policy, we  chose `gender`, `race`, and `gunown` to be the predictor variables in our model. First, since we are interested in forecasting who a respondent is likely to vote for, we used “gender” instead of “gender_post” because it is representative of all adult Americans registered to vote rather than only adult Americans who voted. Second, we used “race” instead of variables by country or region to affirm that race is a social construct with no biological foundation. Third, we used “gunown” instead of variables about gun control because it captures broader opinions rather than specific policy proposals. After exploring the data in the previous section, we found differences in political preference based on these features and that it would be of interest to investigate further.
 
 Logistic regression does not make the same assumptions as linear regression. First, linear regression assumes a continuous outcome variable that can take any number on the real line, whereas logistic regression assumes a binary outcome variable. Furthermore, linear regression requires that the outcome variable is a linear function of the predictor variables, while the outcome in logistic regression is part of the exponential family. However, logistic regression does assume that the relationship between the log-odds of the binary outcome and predictor variables is linear. Lastly, unlike in linear regression, logistic regression does not require the assumption of homoscedasticity of errors.
 
@@ -353,8 +353,6 @@ In future work, we could include additional predictor variables to get a more co
 \appendix
 
 # Appendix {-}
-
-# Additional data details
 
 # Model details {#sec-model-details}
 
