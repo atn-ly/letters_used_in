@@ -119,6 +119,14 @@ Data was downloaded and cleaned to suit our needs and during the data cleaning p
 
 ## Measurement
 
+We will now discuss how the variables, `gender`, `race`, and `gunown`, were measured and how they became an entry in our dataset. Each variable was associated with a related question, and the self-reported response of each individual from the online questionnaire was recorded in the dataset. Some notes on measurement error and missing data are required for each variable.
+
+For the `gender` variable, individuals may choose to identify with diverse gender identities that are beyond the traditional categorization. The number of voters for genders other than male or female were not collected by CES, so we have missing data that we could not include in our analysis. From “Counting the Countless,” this can be considered a result of what Keyes’ refers to as the “administrative violence” that reinforces the gender binary [@counting]. 
+
+
+For the `race` variable, participants were asked to select their ethnicity from one of the predetermined categories. Since this was an internet survey, this minimized the measurement error compared to other modes such as by a telephone interview conducted by a human. In the past, race has been of concern when an enumerator fills out the survey form on behalf of a respondent since it may limit the extent to which they describe their political belief [@rohan].
+
+For the `gunown` variable, participants were asked about their individual and household’s gun ownership status. Since the survey conductors collect Personally Identifying Information (PII), such as name, email address, and postcode [@yougov], respondents could be less likely to disclose their gun ownership status as it is a federal crime to possess illegal firearms.
 
 
 # Model {#sec-model}
