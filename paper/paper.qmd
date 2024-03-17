@@ -55,15 +55,17 @@ This paper was structured to communicate our model, results, and analysis to the
 
 # Data {#sec-data}
 
-## Sources and Methodology
+## Sources
 
 The survey data for this paper is from the Harvard Dataverse Repository. The Cooperative Election Study is a sample survey in the Harvard Dataverse Repository that consists of pre-election and post-election questions with 61000 answers. They provide a guide and a dataset for numerous years. It is also open to the public. For this paper, we utilized the data from the 2020 Presidential Elections [@CES]. The study was done to gain an understanding of “how Americans view Congress and hold their representatives accountable during elections, how they voted and their electoral experiences, and how their behaviour and experiences vary with political geography and social context” [@CES]. The outcome of the 2020 election and every presidential election usually changes the direction of the country and demonstrates the perspectives of the majority of the electorate. Thus, this dataset was able to give us some clarity on perceptions of the electorate. There were similar datasets available, but we chose this one due to relevance to our research question. The questionnaire asked various questions on race, political party preference, voting preference, ownership of a gun and have numerous multiple choice answers available for each question. It was also easily accessible and we were able to adapt and adjust code from Telling Stories with Data [@rohan] to suit our needs. 
 
 Our paper aims to address the following two questions using the data: (1) Does gender and race play a role in political preference? (2) Do those that own a gun favor one candidate over the other?
 
+## Methodology
+ 
 The language and environment used for this analysis is `R` [@citeR], alongside the `tidyverse` [@tidyverse], `dataverse` [@dataverse], `arrow` [@arrow], `rstanarm` [@rstanarm], `knitr` [@knitr], `here` [@here], `ggplot2` [@ggplot2], `scales` [@scales], `modelsummary` [@modelsummary], and `marginaleffects` [@marginaleffects] packages. 
 
-## Variables and Measurement
+## Variables
 
 ```{r}
 #| echo: false
@@ -111,9 +113,21 @@ ces2020 |>
 
 ```
 
-In this paper, we measured key variables related to voter behaviour. From the dataset, we selected `gender`, `race`, `gunown`. In Figure 1, we can see support for candidate based on gender and race. For gender, we considered two options, male or female. For race, we considered eight options, White, Black, Hispanic, Asian, Native American, Middle Eastern, two or more races, and other. Note that only one selection was allowed in the original study for both gender and race. Figure 2 illustrates the support for each candidate based on gun ownership status, with four options. Individuals who personally own a gun, who don’t personally own one, but someone in their household owns a gun, no one in the household owns a gun, and not sure. We also selected the variable that recorded whether an individual voted for Biden or Trump in the 2020 Presidential election, `CC20_410`. This allowed us to establish a binary outcome variable for the probability of voting Biden or Trump in our model in @sec-model. The variables measured here allowed us to identify variation in political attitudes and voting patterns. 
+From the dataset, we selected `gender`, `race`, `gunown` from the pre-election questionnaire. In @fig-race-gender, we can see support for candidate based on gender and race. For gender, we were given two options in the study, male or female. For race, we considered eight options, White, Black, Hispanic, Asian, Native American, Middle Eastern, two or more races, and other. Note that only one selection was allowed in the original study for both gender and race. @fig-gun-ownership-gender illustrates the support for each candidate based on gun ownership status, with four options. Individuals who personally own a gun, who don’t personally own one, but someone in their household owns a gun, no one in the household owns a gun, and not sure. We also selected a variable from the post-election questionnaire, the variable that recorded whether an individual voted for Biden or Trump in the 2020 Presidential election, `CC20_410`. This allowed us to establish a binary outcome variable for the probability of voting Biden or Trump in our model in @sec-model. 
 
 Data was downloaded and cleaned to suit our needs and during the data cleaning process, we made sure to only include participants who were adults registered to vote. We also removed rows with NA values for `gunown`. This was due to the fact that we wanted to see individuals who answered all the questions for our variables of interest. We also limited the participants to those who explicitly stated they voted for Biden or Trump. Initially, other options were available to participants such as “I did not vote” and “not sure”.
+
+## Measurement
+
+We will now discuss how the variables, `gender`, `race`, and `gunown`, were measured and how they became an entry in our dataset. Each variable was associated with a related question, and the self-reported response of each individual from the online questionnaire was recorded in the dataset. Some notes on measurement error and missing data are required for each variable.
+
+For the `gender` variable, individuals may choose to identify with diverse gender identities that are beyond the traditional categorization. The number of voters for genders other than male or female were not collected by CES, so we have missing data that we could not include in our analysis. From “Counting the Countless,” this can be considered a result of what Keyes’ refers to as the “administrative violence” that reinforces the gender binary [@counting]. 
+
+
+For the `race` variable, participants were asked to select their ethnicity from one of the predetermined categories. Since this was an internet survey, this minimized the measurement error compared to other modes such as by a telephone interview conducted by a human. In the past, race has been of concern when an enumerator fills out the survey form on behalf of a respondent since it may limit the extent to which they describe their political belief [@rohan].
+
+For the `gunown` variable, participants were asked about their individual and household’s gun ownership status. Since the survey conductors collect Personally Identifying Information (PII), such as name, email address, and postcode [@yougov], respondents could be less likely to disclose their gun ownership status as it is a federal crime to possess illegal firearms.
+
 
 # Model {#sec-model}
 
